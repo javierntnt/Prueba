@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HELLO WORLD Animado</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<script>
+  // Espera el mismo delay que el texto (2s) y activa el fondo
+  setTimeout(() => {
+    document.querySelector('.background').style.animation = 
+      "slideBackgroundRight 2s ease-in-out forwards";
+  }, 2000); 
+</script>
+<body>
+  <div class="wrapper">
+    <div class="left-panel">
+      <img src="imagen.jpeg" alt="Tu imagen" class="side-image" />
+    </div>
+    <div class="background"></div>
+    <h1 class="hello">HELLO WORLD</h1>
+  </div>
+</body>
+</html>

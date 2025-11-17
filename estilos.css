@@ -1,0 +1,93 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Fondo inicial estático */
+.background {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  left: -50%;
+  background: linear-gradient(to right, #000 50%, #4a90e2 50%);
+}
+
+/* Asegurar orden de capas */
+.background { z-index: 1; }
+
+/* Panel izquierdo que contiene la imagen (entra desde la izquierda) */
+.left-panel {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  background: #000; /* mantiene la división vertical negra al inicio */
+  animation: slideImageIn 3s ease-in-out forwards 3s; /* inicia a los 2s, igual que el fondo/texto */
+}
+
+.side-image {
+  width: 110%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Texto */
+.hello {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-size: 6em;
+  color: white;
+  opacity: 0;
+  animation:
+    enterText 2s ease-out forwards,       /* Entrada vertical */
+    moveTextRight 3s ease-in-out forwards 3s; /* Movimiento horizontal */
+}
+
+@keyframes enterText {
+  to {
+    opacity: 1;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes moveTextRight {
+  to {
+    left: 75%;
+    color: #00ff99;
+  }
+}
+
+/* Fondo se mueve a la derecha sincronizado con el texto */
+@keyframes slideBackgroundRight {
+  to {
+    left: 0%;
+  }
+}
+
+@keyframes slideImageIn {
+  to {
+    left: 0%;
+  }
+}
+
+/* Asegurar que el texto quede encima */
+.hello { z-index: 3; }
