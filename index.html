@@ -3,23 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HELLO WORLD Animado</title>
+  <title>Auth</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
-<script>
-  // Espera el mismo delay que el texto (2s) y activa el fondo
-  setTimeout(() => {
-    document.querySelector('.background').style.animation = 
-      "slideBackgroundRight 2s ease-in-out forwards";
-  }, 2000); 
-</script>
 <body>
+
   <div class="wrapper">
     <div class="left-panel">
       <img src="imagen.jpeg" alt="Tu imagen" class="side-image" />
     </div>
     <div class="background"></div>
-    <h1 class="hello">HELLO WORLD</h1>
+
+    <div class="container animated-panel">
+      <div class="card">
+        <div class="tabs">
+          <button class="tab" id="signupTab">Sign Up</button>
+          <button class="tab active" id="loginTab">Sign In</button>
+        </div>
+
+        <div class="forms">
+          <!-- SIGN UP FORM -->
+          <form class="form" id="signupForm">
+            <div class="inputBox">
+              <input type="email" required>
+              <span>Email</span>
+            </div>
+            <div class="inputBox">
+              <input type="text" required>
+              <span>Username</span>
+            </div>
+            <div class="inputBox">
+              <input type="password" required>
+              <span>Password</span>
+            </div>
+            <button class="enter">Create account</button>
+          </form>
+
+          <!-- LOGIN FORM -->
+          <form class="form active" id="loginForm">
+            <div class="inputBox">
+              <input type="text" required>
+              <span>Username or Email</span>
+            </div>
+            <div class="inputBox">
+              <input type="password" required>
+              <span>Password</span>
+            </div>
+            <button class="enter">Log in</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <script>
+    // Activa la animación del fondo tras 2s para sincronizar con la entrada del formulario
+    setTimeout(() => {
+      document.querySelector('.background').style.animation =
+        'slideBackgroundRight 2s ease-in-out forwards';
+    }, 2000);
+  </script>
+
+  <script>
+    // Script para alternar entre pestañas (signup / signin)
+    document.addEventListener('DOMContentLoaded', () => {
+      const signupTab = document.getElementById('signupTab');
+      const loginTab = document.getElementById('loginTab');
+      const signupForm = document.getElementById('signupForm');
+      const loginForm = document.getElementById('loginForm');
+
+      function show(type) {
+        if (type === 'signup') {
+          signupTab.classList.add('active');
+          loginTab.classList.remove('active');
+          signupForm.classList.add('active');
+          loginForm.classList.remove('active');
+        } else {
+          loginTab.classList.add('active');
+          signupTab.classList.remove('active');
+          loginForm.classList.add('active');
+          signupForm.classList.remove('active');
+        }
+      }
+
+      signupTab.addEventListener('click', () => show('signup'));
+      loginTab.addEventListener('click', () => show('login'));
+
+      // Switch button toggles between login and signup
+      const switchBtn = document.getElementById('switchBtn');
+      function updateSwitchText(type) {
+        if (type === 'signup') switchBtn.textContent = 'Switch to Sign In';
+        else switchBtn.textContent = 'Switch to Sign Up';
+      }
+
+      // initialize text based on which form is active
+      updateSwitchText(loginForm.classList.contains('active') ? 'login' : 'signup');
+
+      switchBtn.addEventListener('click', () => {
+        const isLoginActive = loginForm.classList.contains('active');
+        if (isLoginActive) show('signup');
+        else show('login');
+        updateSwitchText(isLoginActive ? 'signup' : 'login');
+      });
+    });
+  </script>
+
 </body>
 </html>
