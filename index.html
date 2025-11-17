@@ -3,107 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Auth</title>
+  <title>HELLO WORLD Animado</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
+
 <body>
 
-  <div class="wrapper">
-    <div class="left-panel">
-      <img src="imagen.jpeg" alt="Tu imagen" class="side-image" />
-    </div>
-    <div class="background"></div>
+  <!-- Imagen de fondo -->
+  <div class="background"></div>
 
-    <div class="container animated-panel">
-      <div class="card">
-        <div class="tabs">
-          <button class="tab" id="signupTab">Sign Up</button>
-          <button class="tab active" id="loginTab">Sign In</button>
-        </div>
+  <!-- Panel negro izquierdo -->
+  <div class="panel negro"></div>
 
-        <div class="forms">
-          <!-- SIGN UP FORM -->
-          <form class="form" id="signupForm">
-            <div class="inputBox">
-              <input type="email" required>
-              <span>Email</span>
-            </div>
-            <div class="inputBox">
-              <input type="text" required>
-              <span>Username</span>
-            </div>
-            <div class="inputBox">
-              <input type="password" required>
-              <span>Password</span>
-            </div>
-            <button class="enter">Create account</button>
-          </form>
+  <!-- Panel verde derecho -->
+  <div class="panel verde"></div>
 
-          <!-- LOGIN FORM -->
-          <form class="form active" id="loginForm">
-            <div class="inputBox">
-              <input type="text" required>
-              <span>Username or Email</span>
-            </div>
-            <div class="inputBox">
-              <input type="password" required>
-              <span>Password</span>
-            </div>
-            <button class="enter">Log in</button>
-          </form>
-        </div>
+  <!-- FORMULARIO -->
+  <div class="form-container">
+    <div class="card">
+
+      <!-- Switcher -->
+      <div class="switcher">
+        <button class="switch-btn active" data-target="signup">Registrarse</button>
+        <button class="switch-btn" data-target="signin">Iniciar Sesión</button>
       </div>
+
+      <!-- FORMULARIOS -->
+      <form class="form form-signup active" novalidate>
+
+        <div class="inputBox1">
+          <input type="text" required>
+          <span>Email</span>
+        </div>
+
+        <div class="inputBox">
+          <input type="text" required>
+          <span>CC</span>
+        </div>
+
+        <div class="inputBox">
+          <input type="password" required>
+          <span>Contraseña</span>
+        </div>
+
+        <button class="enter">Crear cuenta</button>
+      </form>
+
+      <form class="form form-signin hidden" novalidate>
+
+        <div class="inputBox">
+          <input type="text" required>
+          <span>CC o Email</span>
+        </div>
+
+        <div class="inputBox">
+          <input type="password" required>
+          <span>Contraseña</span>
+        </div>
+
+        <button class="enter">Iniciar Sesión</button>
+      </form>
+
     </div>
   </div>
 
+  <!-- Script tabs -->
   <script>
-    // Activa la animación del fondo tras 2s para sincronizar con la entrada del formulario
-    setTimeout(() => {
-      document.querySelector('.background').style.animation =
-        'slideBackgroundRight 2s ease-in-out forwards';
-    }, 2000);
-  </script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const buttons = document.querySelectorAll(".switch-btn");
+      const signup = document.querySelector(".form-signup");
+      const signin = document.querySelector(".form-signin");
 
-  <script>
-    // Script para alternar entre pestañas (signup / signin)
-    document.addEventListener('DOMContentLoaded', () => {
-      const signupTab = document.getElementById('signupTab');
-      const loginTab = document.getElementById('loginTab');
-      const signupForm = document.getElementById('signupForm');
-      const loginForm = document.getElementById('loginForm');
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          buttons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
 
-      function show(type) {
-        if (type === 'signup') {
-          signupTab.classList.add('active');
-          loginTab.classList.remove('active');
-          signupForm.classList.add('active');
-          loginForm.classList.remove('active');
-        } else {
-          loginTab.classList.add('active');
-          signupTab.classList.remove('active');
-          loginForm.classList.add('active');
-          signupForm.classList.remove('active');
-        }
-      }
+          const target = btn.dataset.target;
 
-      signupTab.addEventListener('click', () => show('signup'));
-      loginTab.addEventListener('click', () => show('login'));
+          if (target === "signup") {
+            signup.classList.add("active");
+            signup.classList.remove("hidden");
 
-      // Switch button toggles between login and signup
-      const switchBtn = document.getElementById('switchBtn');
-      function updateSwitchText(type) {
-        if (type === 'signup') switchBtn.textContent = 'Switch to Sign In';
-        else switchBtn.textContent = 'Switch to Sign Up';
-      }
+            signin.classList.remove("active");
+            signin.classList.add("hidden");
+          } else {
+            signin.classList.add("active");
+            signin.classList.remove("hidden");
 
-      // initialize text based on which form is active
-      updateSwitchText(loginForm.classList.contains('active') ? 'login' : 'signup');
-
-      switchBtn.addEventListener('click', () => {
-        const isLoginActive = loginForm.classList.contains('active');
-        if (isLoginActive) show('signup');
-        else show('login');
-        updateSwitchText(isLoginActive ? 'signup' : 'login');
+            signup.classList.remove("active");
+            signup.classList.add("hidden");
+          }
+        });
       });
     });
   </script>
